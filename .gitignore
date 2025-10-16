@@ -1,33 +1,27 @@
-.gradle/
+# Unity generated
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Bb]uild/
+[Bb]uilds/
+[Ll]ogs/
+[Uu]ser[Ss]ettings/
+
+# Unity Package Manager
+/[Pp]ackages/packages-lock.json
+
+# Visual Studio cache
+.vs/
+
+# Rider cache
 .idea/
-.vscode/
-bin/
-build/
-*.iml
-local.properties
-local.settings
-.externalNativeBuild/
-*.apk
 
-*.sln
-*.userprefs
-Library/
-ProjectSettings/
-Temp/
-obj/
+# macOS
+.DS_Store
+*.swp
+*.swo
 
-# Don't check in the resolver
-GoogleSignInPlugin/Assets/PlayServicesResolver/
-
-# don't checkin client plists
-GoogleSignInPlugin/Assets/Plugins/iOS/client*.plist*
-
-Assembly-CSharp-Editor.csproj
-Assembly-CSharp.csproj
-
-# don't check in the binaries that are built (for now)
-staging/native/google-signin-cpp
-
-# don't check in iOS pod generated content
-contents.xcworkspacedata
-staging/native/testapp/testapp.xcodeproj/project.xcworkspace/xcuserdata
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini

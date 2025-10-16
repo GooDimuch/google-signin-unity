@@ -1,0 +1,27 @@
+{
+  "name": "com.google.signin",
+  "version": "1.0.4",
+  "displayName": "Google Sign-In",
+  "description": "Google Sign-In API plugin for Unity. Works with Android and iOS. Uses legacy GoogleApiClient API for maximum Android compatibility (6.0+).",
+  "unity": "2019.4",
+  "unityRelease": "0f1",
+  "documentationUrl": "https://developers.google.com/identity/sign-in/android",
+  "changelogUrl": "https://github.com/GooDimuch/google-signin-unity/blob/upm-package/CHANGELOG.md",
+  "licensesUrl": "https://github.com/GooDimuch/google-signin-unity/blob/upm-package/LICENSE",
+  "keywords": [
+    "google",
+    "signin",
+    "authentication",
+    "oauth",
+    "android",
+    "ios",
+    "identity",
+    "login"
+  ],
+  "author": {
+    "name": "Google Inc.",
+    "url": "https://developers.google.com/identity"
+  },
+  "type": "library"
+}
+
