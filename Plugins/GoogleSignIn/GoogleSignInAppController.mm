@@ -16,6 +16,7 @@
 
 #import "GoogleSignInAppController.h"
 #import <objc/runtime.h>
+#import <GoogleSignIn/GoogleSignIn.h>
 
 // Handles Google SignIn UI and events.
 GoogleSignInHandler *gsiHandler;
@@ -45,12 +46,15 @@ GoogleSignInHandler *gsiHandler;
       @selector(GoogleSignInAppController:didFinishLaunchingWithOptions:));
   method_exchangeImplementations(original, swizzled);
 
+  // Check if the deprecated method exists before swizzling (Unity 6 compatibility)
   original = class_getInstanceMethod(
       self, @selector(application:openURL:sourceApplication:annotation:));
-  swizzled = class_getInstanceMethod(
-      self, @selector
-      (GoogleSignInAppController:openURL:sourceApplication:annotation:));
-  method_exchangeImplementations(original, swizzled);
+  if (original) {
+    swizzled = class_getInstanceMethod(
+        self, @selector
+        (GoogleSignInAppController:openURL:sourceApplication:annotation:));
+    method_exchangeImplementations(original, swizzled);
+  }
 
   original =
       class_getInstanceMethod(self, @selector(application:openURL:options:));
