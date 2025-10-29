@@ -16,10 +16,6 @@
 
 #import "GoogleSignInAppController.h"
 #import <objc/runtime.h>
-#import <GoogleSignIn/GoogleSignIn.h>
-
-// Handles Google SignIn UI and events.
-GoogleSignInHandler *gsiHandler;
 
 /*
  * Create a category to customize the application.  When this is loaded the
@@ -46,7 +42,7 @@ GoogleSignInHandler *gsiHandler;
       @selector(GoogleSignInAppController:didFinishLaunchingWithOptions:));
   method_exchangeImplementations(original, swizzled);
 
-  // Check if the deprecated method exists before swizzling (Unity 6 compatibility)
+  // Unity 6 патч: перевірка чи існує deprecated метод
   original = class_getInstanceMethod(
       self, @selector(application:openURL:sourceApplication:annotation:));
   if (original) {
@@ -66,63 +62,10 @@ GoogleSignInHandler *gsiHandler;
 - (BOOL)GoogleSignInAppController:(UIApplication *)application
     didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 
-  // IMPORTANT: IF you are not supplying a GoogleService-Info.plist in your
-  // project that contains the client id, you need to set the client id here.
-
-  NSString *path = [[NSBundle mainBundle] pathForResource:@"GoogleService-Info"
-                                                   ofType:@"plist"];
-  NSDictionary *dict = [NSDictionary dictionaryWithContentsOfFile:path];
-  NSString *clientId = [dict objectForKey:@"CLIENT_ID"];
-
-  gsiHandler = [GoogleSignInHandler alloc];
-
-  // Setup the Sign-In instance.
-  GIDSignIn *signIn = [GIDSignIn sharedInstance];
-  signIn.clientID = clientId;
-  signIn.uiDelegate = gsiHandler;
-  signIn.delegate = gsiHandler;
-
   // looks like it's just calling itself, but the implementations were swapped
   // so we're actually calling the original once we're done
   return [self GoogleSignInAppController:application
            didFinishLaunchingWithOptions:launchOptions];
-}
-
-/**
- * Handle the auth URL
- */
-- (BOOL)GoogleSignInAppController:(UIApplication *)application
-                          openURL:(NSURL *)url
-                sourceApplication:(NSString *)sourceApplication
-                       annotation:(id)annotation {
-  BOOL handled = [self GoogleSignInAppController:application
-                                         openURL:url
-                               sourceApplication:sourceApplication
-                                      annotation:annotation];
-
-  return [[GIDSignIn sharedInstance] handleURL:url
-                             sourceApplication:sourceApplication
-                                    annotation:annotation] ||
-         handled;
-}
-
-/**
- * Handle the auth URL.
- */
-- (BOOL)GoogleSignInAppController:(UIApplication *)app
-                          openURL:(NSURL *)url
-                          options:(NSDictionary *)options {
-
-  BOOL handled =
-      [self GoogleSignInAppController:app openURL:url options:options];
-
-  return [[GIDSignIn sharedInstance]
-                     handleURL:url
-             sourceApplication:
-                 options[UIApplicationOpenURLOptionsSourceApplicationKey]
-                    annotation:
-                        options[UIApplicationOpenURLOptionsAnnotationKey]] ||
-         handled;
 }
 
 @end

@@ -12,8 +12,7 @@
 
   <!-- iOS Cocoapod dependencies can be specified by each iosPod element. -->
   <iosPods>
-    <iosPod name="GoogleSignIn" version="~> 4.0" bitcodeEnabled="false"
-        minTargetSdk="6.0">
+    <iosPod name="GoogleSignIn" version="8.0.0" bitcodeEnabled="false" minTargetSdk="6.0">
     </iosPod>
   </iosPods>
 </dependencies>
